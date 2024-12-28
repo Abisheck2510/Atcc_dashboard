@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ATCC Dashboard</title>
+
+
+    <!--Poppins font -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+        rel="stylesheet">
+
+
+    <!-- <link rel="stylesheet" type="text/css" href="/static/style.css"> -->
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html,
+        body {
+            width: 100%;
+            overflow-x: hidden;
+        }
+
+        .container {
+            display: flex;
+            background-color: #735DA5;
+            padding: 15px;
+            margin: 0;
+            margin-top: 10px;
+        }
+
+        .navbar-header {
+            margin-left: 5rem;
+            font-size: 35px;
+            font-family: "Poppins", serif;
+        }
+
+        .navbar-header a {
+            text-decoration: none;
+            color: #fff;
+        }
+
+        .navbar-nav {
+            display: flex;
+            margin-left: 20rem;
+            font-size: 20px;
+
+            font-family: "Poppins", serif;
+        }
+
+        .navbar-nav a {
+            text-decoration: none;
+            color: #fff;
+
+        }
+
+        .navbar-nav li {
+            list-style: none;
+            margin-left: 30px;
+            text-transform: uppercase;
+            margin-top: 15px;
+        }
+
+        .filter {
+            display: flex;
+            padding: 30px 80px;
+            font-size: 20px;
+            font-family: "Poppins", serif;
+            background-color: #D3C5E5;
+            align-items: center;
+            justify-content: center;
+        }
+
+        #start-datetime {
+            padding: 10px;
+            margin-right: 30px;
+            margin-left: 5px;
+            background-color: #CEE6F2;
+            border-radius: 20px;
+            border: solid 2px black;
+            font-family: "Poppins", serif;
+            text-transform: uppercase;
+            color: rgba(0, 0, 0, 0.7);
+        }
+
+        #end-datetime {
+            padding: 10px;
+            margin-right: 20px;
+            margin-left: 5px;
+            background-color: #CEE6F2;
+            border-radius: 20px;
+            border: solid 2px black;
+            font-family: "Poppins", serif;
+            text-transform: uppercase;
+            color: rgba(0, 0, 0, 0.7);
+        }
+
+        #applyfilters {
+            padding: 14px;
+            border-radius: 8px;
+            margin-left: 20px;
+            background-color: #0066FF;
+            border: none;
+            color: #fff;
+            font-size: 16px;
+            text-transform: uppercase;
+            font-weight: bold;
+        }
+
+        .Chart {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-around;
+            align-items: center;
+            margin-top: 25px;
+            margin-bottom: 35px;
+        }
+
+        #vehicleCountChart {
+            width: 100 rem;
+            height: 350px;
+            margin-left: 50px;
+        }
+
+        #hourlyCountChart {
+            width: 100 rem;
+            height: 350px;
+            margin-left: 50px;
+        }
+
+        .Chart1 {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-around;
+            align-items: center;
+            margin-top: 25px;
+        }
+
+        .c3 {
+            width: 400px;
+            height: 400px;
+            margin-left: 50px;
+        }
+
+        .c4 {
+            width: 400px;
+            height: 400px;
+            margin-left: 50px;
+        }
+
+        #add-data {
+            padding: 10px;
+            border-radius: 4px;
+            margin-left: 30px;
+            background-color: #0066FF;
+            color: #fff;
+            font-size: 16px;
+            text-transform: uppercase;
+            font-weight: bold;
+            margin-top: -12px;
+        }
+
+        .modal {
+            display: none;
+            /* Hidden by default */
+            position: fixed;
+            /* Stay in place */
+            z-index: 1;
+            /* Sit on top */
+            left: 0;
+            top: 0;
+            width: 100%;
+            /* Full width */
+            height: 100%;
+            /* Full height */
+            overflow: auto;
+            /* Enable scroll if needed */
+            background-color: rgba(0, 0, 0, 0.5);
+            /* Black background with opacity */
+            font-family: "Poppins", serif;
+        }
+
+        /* Modal content box */
+        .modal-content {
+            background-color: #fff;
+            margin: 3% auto;
+            /* 10% from the top and centered */
+            padding: 30px 50px;
+            border: 1px solid #888;
+            width: 40%;
+            /* Adjust width as needed */
+            border-radius: 8px;
+            font-size: 18px;
+        }
+
+        /* Close button styling */
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .form-control {
+            padding: 10px;
+            border: solid 1px #888;
+            border-radius: 5px;
+            font-family: "Poppins", serif;
+            display: block;
+            width: 25rem;
+            margin-left: 10px;
+        }
+
+        .form-group {
+            padding: 10px;
+        }
+
+        #date_time {
+            text-transform: uppercase;
+            color: #888;
+        }
+
+        #fileUpload {
+            font-family: "Poppins", serif;
+        }
+
+        #submit {
+            padding: 8px 20px;
+            font-family: "Poppins", serif;
+            font-size: 16px;
+            border-radius: 5px;
+
+            background-color: #0066FF;
+            color: #fff;
+            text-transform: uppercase;
+            margin-left: 200px;
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="navbar navbar-default">
+        <div class="container">
+            <div class="navbar-header">
+                <a href="#" class="navbar-brand">ATCC Dashboard</a>
+            </div>
+            <div class="nav navbar-nav">
+                <li class="active"><a href="#">Home</a></li>
+                <li><a href="#">About</a></li>
+                <li><a href="#">Features</a></li>
+                <li><a href="#">Contact Us</a></li>
+                <li><button id="add-data">Add Data +</button></li>
+            </div>
+        </div>
+    </nav>
+
+    <div id="dataModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h3>Add New Data</h3>
+            <form id="addDataForm">
+                <div class="form-group">
+                    <label for="id">ID :</label>
+                    <input type="number" id="id" name="id" class="form-control" placeholder="Enter new ID" required>
+                </div>
+                <div class="form-group">
+                    <label for="date_time">Date and Time :</label>
+                    <input type="datetime-local" id="date_time" name="date_time" class="form-control" step="1" required>
+                </div>
+                <div class="form-group">
+                    <label for="vehicle_id">Vehicle ID :</label>
+                    <input type="number" id="vehicle_id" name="vehicle_id" class="form-control"
+                        placeholder="Enter vehicle ID" required>
+                </div>
+                <div class="form-group">
+                    <label for="vehicle_class_id">Vehicle Class ID :</label>
+                    <input type="number" id="vehicle_class_id" name="vehicle_class_id" class="form-control"
+                        placeholder="Enter vehicle class ID" required>
+                </div>
+                <div class="form-group">
+                    <label for="vehicle_name">Vehicle Name :</label>
+                    <input type="text" id="vehicle_name" name="vehicle_name" class="form-control"
+                        placeholder="Enter vehicle name" required>
+                </div>
+                <div class="form-group">
+                    <label for="direction">Direction :</label>
+                    <input type="number" id="direction" name="direction" class="form-control"
+                        placeholder="Enter direction" required>
+                </div>
+                <div class="form-group">
+                    <label for="frame_number">Frame Number :</label>
+                    <input type="number" id="frame_number" name="frame_number" class="form-control"
+                        placeholder="Enter frame number" required>
+                </div>
+                <div class="form-group">
+                    <label for="fileUpload">Choose a file:</label>
+                    <input type="file" id="fileUpload" name="image_file" required>
+                </div>
+
+                <button type="submit" id="submit">Submit</button>
+            </form>
+
+            <div id="responseMessage" style="margin-top: 10px; color: green;"></div>
+        </div>
+    </div>
+
+    <div class="filter">
+        <div class="startdate-filter">
+            <label for="start-datetime">Start Date and Time:</label>
+            <input type="datetime-local" id="start-datetime" name="start-datetime" step="1">
+        </div>
+        <div class="enddate-filter">
+            <label for="end-datetime">End Date and Time:</label>
+            <input type="datetime-local" id="end-datetime" name="end-datetime" step="1">
+        </div>
+        <div class="filterbutton">
+            <button id="applyfilters" class="btn btn-primary">Apply Filters</button>
+        </div>
+    </div>
+
+    <div class="Chart">
+        <div class="c1">
+            <canvas id="vehicleCountChart"></canvas>
+        </div>
+
+        <div class="c2">
+            <canvas id="hourlyCountChart"></canvas>
+        </div>
+
+    </div>
+
+    <div class="Chart1">
+        <div class="c3">
+            <canvas id="vehiclePercentageChart"></canvas>
+        </div>
+
+        <div class="c4">
+            <canvas id="doughnutChart"></canvas>
+        </div>
+    </div>
+
+    <script>
+
+        // const form = document.getElementById('addDataForm');
+
+        // form.addEventListener('submit', async function (event) {
+
+        //     event.preventDefault(); // Prevent default form submission
+
+        //     // Create FormData object
+        //     const formData = new FormData(form);
+
+        //     // Convert form data to an object
+        //     const data = Object.fromEntries(formData.entries());
+
+
+        //     try {
+        //         const response = await fetch("/submit", {
+        //             method: "POST",
+        //             headers: {
+        //                 "Content-type": "application/json"
+        //             },
+        //             body: JSON.stringify(data)
+        //         });
+
+        //         console.log(response)
+
+        //         if (response.ok) {
+        //             document.getElementById("responseMessage").textContent = "Form submitted successfully!";
+        //             form.reset();
+        //         } else if (response.status === 400) {
+        //             document.getElementById("responseMessage").textContent = "Bad Request. Please check your input.";
+        //         } else if (response.status === 500) {
+        //             document.getElementById("responseMessage").textContent = "Server error. Please try again later.";
+        //         } else {
+        //             document.getElementById("responseMessage").textContent = "Failed to submit form.";
+        //         }
+        //     } catch (error) {
+        //         console.error("Error :", error);
+        //         document.getElementById("responseMessage").textContent = "An error occurred.";
+        //     }
+
+        //     // Access specific fields
+
+        // });
+
+        // async function submitForm(e) {
+        //     e.preventDefault()
+        //     const form = document.getElementById("addDataForm");
+        //     const formData = new FormData(form);
+
+        //     const data1 = Object.fromEntries(formData.entries());
+
+        //     console.log(data1)
+
+        //     const data = {
+        //         id: formData.get("id"),
+        //         date_time: formData.get("date_time") + ":00",
+        //         vehicle_id: formData.get("vehicle_id"),
+        //         vehicle_class_id: formData.get("vehicle_class_id"),
+        //         vehicle_name: formData.get("vehicle_name"),
+        //         ai_class: formData.get("ai_class") || null,
+        //         audited_class: formData.get("audited_class") || null,
+        //         direction: formData.get("direction"),
+        //         cross_line: formData.get("cross_line") || null,
+        //         x1_coords: formData.get("x1_coords") || null,
+        //         y1_coords: formData.get("y1_coords") || null,
+        //         x2_coords: formData.get("x2_coords") || null,
+        //         y2_coords: formData.get("y2_coords") || null,
+        //         frame_number: formData.get("frame_number"),
+        //         image_path: formData.get("image_path"),
+        //         play_stream_id: formData.get("play_stream_id") || null,
+        //         is_audit: formData.get("is_audit") || null,
+        //         kit_id: formData.get("kit_id") || null,
+        //         last_modified: formData.get("last_modified") || null
+        //     };
+
+        //     console.log(data)
+
+        //     try {
+        //         const response = await fetch("/submit", {
+        //             method: "POST",
+        //             headers: {
+        //                 "Content-type": "application/json"
+        //             },
+        //             body: JSON.stringify(data)
+        //         });
+
+        //         console.log(response)
+
+        //         if (response.ok) {
+        //             document.getElementById("responseMessage").textContent = "Form submitted successfully!";
+        //             form.reset();
+        //         } else if (response.status === 400) {
+        //             document.getElementById("responseMessage").textContent = "Bad Request. Please check your input.";
+        //         } else if (response.status === 500) {
+        //             document.getElementById("responseMessage").textContent = "Server error. Please try again later.";
+        //         } else {
+        //             document.getElementById("responseMessage").textContent = "Failed to submit form.";
+        //         }
+        //     } catch (error) {
+        //         console.error("Error :", error);
+        //         document.getElementById("responseMessage").textContent = "An error occurred.";
+        //     }
+        // }
+    </script>
+    <script src="/static/app.js"></script>
+    <script src="/static/form.js"></script>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2"></script>
+</body>
+
+</html>
