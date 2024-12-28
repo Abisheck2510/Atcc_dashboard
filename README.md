@@ -46,9 +46,6 @@ Atcc_dashboard/
 
 ## 🖥️ Installation
 
-
-## 🖥️ Installation
-
 1. **Clone the Repository**:
    ```bash
    git clone https://github.com/yourusername/atcc_dashboard.git
