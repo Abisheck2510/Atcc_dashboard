@@ -43,3 +43,24 @@ Atcc_dashboard/
 ├── package.json
 ├── README.md
 
+
+## 🖥️ Installation
+
+
+## 🖥️ Installation
+
+1. **Clone the Repository**:
+   ```bash
+   git clone https://github.com/yourusername/atcc_dashboard.git
+   cd atcc_dashboard
+
+2. Set Up the Backend:
+
+   Install dependencies:
+      pip install -r requirements.txt
+
+   Run the FastAPI server:
+      uvicorn backend.app.main:app --reload
+
+
+
