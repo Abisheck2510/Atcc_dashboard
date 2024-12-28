@@ -59,5 +59,23 @@ Atcc_dashboard/
    Run the FastAPI server:
       uvicorn backend.app.main:app --reload
 
+3. Set Up the Database:
 
+   Ensure PostgreSQL is installed and running.
+   Create a database and update the connection string in the FastAPI app configuration.
+   Start the Frontend: Open the index.html file in your browser or serve it using a lightweight server.
+
+🖼️ Screenshots
+
+
+🤝 Contributing
+Contributions are welcome! If you have suggestions or improvements, feel free to open an issue or submit a pull request.
+
+📄 License
+This project is licensed under the MIT License.
+
+📧 Contact
+For questions or support, please contact:
+Abisheck Raja R
+[GitHub Profile](https://github.com/Abisheck2510)
 
