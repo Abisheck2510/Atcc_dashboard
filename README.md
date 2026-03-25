@@ -48,7 +48,7 @@ Atcc_dashboard/
 
 1. **Clone the Repository**:
    ```bash
-   git clone https://github.com/yourusername/atcc_dashboard.git
+   git clone https://github.com/Abisheck2510/Atcc_dashboard.git
    cd atcc_dashboard
 
 2. Set Up the Backend:
